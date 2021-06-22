@@ -719,14 +719,6 @@ describe(`The incremental products processor`, () => {
       id: firstProductId,
     },
     {
-      id: firstVariantId,
-      __parentId: firstProductId,
-    },
-    {
-      id: firstMetadataId,
-      __parentId: firstVariantId,
-    },
-    {
       id: firstImageId,
       __parentId: firstProductId,
     },
@@ -846,7 +838,7 @@ describe(`The incremental products processor`, () => {
 
     await sourceFromOperation(operations.incrementalProducts(new Date()))
 
-    expect(createNode).toHaveBeenCalledTimes(4)
+    expect(createNode).toHaveBeenCalledTimes(2)
     expect(deleteNode).toHaveBeenCalledTimes(6)
 
     expect(deleteNode).toHaveBeenCalledWith(
@@ -898,24 +890,10 @@ describe(`The incremental products processor`, () => {
       })
     )
 
-    // expect(createNode).toHaveBeenCalledWith(
-    //   expect.objectContaining({
-    //     id: firstMetadataId,
-    //     productVariantId: firstVariantId,
-    //   })
-    // )
-
-    // expect(createNode).toHaveBeenCalledWith(
-    //   expect.objectContaining({
-    //     id: firstVariantId,
-    //     productId: firstProductId,
-    //   })
-    // )
-
-    // expect(createNode).toHaveBeenCalledWith(
-    //   expect.objectContaining({
-    //     id: firstProductId,
-    //   })
-    // )
+    expect(createNode).toHaveBeenCalledWith(
+      expect.objectContaining({
+        id: firstProductId,
+      })
+    )
   })
 })
